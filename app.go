@@ -30,7 +30,17 @@ func (app *App) run() {
 
 	loggedRouter := handlers.LoggingHandler(os.Stderr, r)
 
-	err := http.ListenAndServe(":8080", loggedRouter)
+	listenAddr := os.Getenv("PORT")
+
+	if listenAddr == "" {
+		listenAddr = ":8080"
+	} else {
+		listenAddr = ":" + listenAddr
+	}
+
+	log.Printf("Listening on %v", listenAddr)
+
+	err := http.ListenAndServe(listenAddr, loggedRouter)
 
 	if err != nil {
 		log.Fatal(err)
