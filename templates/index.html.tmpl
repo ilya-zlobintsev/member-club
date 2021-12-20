@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    body {
+        background-color: rgb(190, 102, 0);
+        font-family: sans-serif;
+        text-align: center;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 75%;
+        table-layout: fixed;
+    }
+    
+    form {
+        display: inline-block;
+    }
+
+    input {
+        margin: 5px;
+    }
+
+    label {
+        display: inline-block;
+        width: 50px;
+    }
+
+    table,
+    th,
+    td {
+        border: 2px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    header {
+        background-color: red;
+        padding: 20px;
+    }
+</style>
+
+<body>
+    {{ if .ErrorMessage }}
+    <header><b>{{ .ErrorMessage }}</b></header>
+    {{ end }}
+
+    <h1>Welcome to the Club!</h1>
+
+    <h2><b>New member</b></h2>
+    <form method="POST">
+        <label for="name"><b>Name:</b></label>
+        <input type="text" name="name"><br>
+        <label for="email"><b>Email:</b></label>
+        <input type="text" name="email"><br>
+        <input type="submit" value="Add">
+        <input type="reset" value="Clear">
+    </form>
+
+    <h2>Members</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Registration date</th>
+        </tr>
+        {{ range .Members }}
+        <tr>
+            <td>{{ .Name }}</td>
+            <td>{{ .Email }}</td>
+            <td>{{ .RegistrationDate }}</td>
+        </tr>
+        {{ end }}
+    </table>
+</body>
+
+</html>
